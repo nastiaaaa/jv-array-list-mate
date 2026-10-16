@@ -54,25 +54,19 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public T get(int index) {
-        if (index < 0 || index >= counter) {
-            throw new ArrayListIndexOutOfBoundsException("");
-        }
+        checkIfIndexValid(index);
         return array[index];
     }
 
     @Override
     public void set(T value, int index) {
-        if (index < 0 || index >= counter) {
-            throw new ArrayListIndexOutOfBoundsException("");
-        }
+        checkIfIndexValid(index);
         array[index] = value;
     }
 
     @Override
     public T remove(int index) {
-        if (index < 0 || index >= counter) {
-            throw new ArrayListIndexOutOfBoundsException("");
-        }
+        checkIfIndexValid(index);
         T elementForRemove = array[index];
         if (index == maxCapacity - 1) {
             array[index] = null;
@@ -122,10 +116,16 @@ public class ArrayList<T> implements List<T> {
     private void resize() {
         int newSize = maxCapacity + maxCapacity / 2;
         T[] tempArray = (T[]) new Object[newSize];
-        for (int i = 0; i < counter; i++) {
-            tempArray[i] = array[i];
+        if (counter >= 0) {
+            System.arraycopy(array, 0, tempArray, 0, counter);
         }
         maxCapacity = newSize;
         array = tempArray;
+    }
+
+    private void checkIfIndexValid(int index) {
+        if (index < 0 || index >= counter) {
+            throw new ArrayListIndexOutOfBoundsException("passed index out of bounds.");
+        }
     }
 }
