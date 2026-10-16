@@ -25,7 +25,7 @@ public class ArrayList<T> implements List<T> {
     @Override
     public void add(T value, int index) {
         if (index < 0 || index > counter) {
-            throw new ArrayListIndexOutOfBoundsException("passed index greater than array length + 1");
+            throw new ArrayListIndexOutOfBoundsException("");
         }
         if (counter == array.length) {
             resize();
@@ -45,7 +45,7 @@ public class ArrayList<T> implements List<T> {
         int listSize = list.size();
         while (counter + listSize >= maxCapacity) {
             resize();
-        };
+        }
         for (int i = 0; i < listSize; i++) {
             array[counter] = list.get(i);
             counter++;
@@ -93,7 +93,7 @@ public class ArrayList<T> implements List<T> {
         T elementForRemove = null;
         for (int i = 0; i < counter; i++) {
             if (array[i] != null && array[i].equals(element)
-                || array[i] == null && element == null) {
+                    || array[i] == null && element == null) {
                 isFound = true;
                 index = i;
                 elementForRemove = array[index];
